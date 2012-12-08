@@ -200,10 +200,9 @@ $ () ->
 				console.log("timeout")
 	showPlacesNearMe = (position) ->
 		here = "#{position.coords.latitude},#{position.coords.longitude}"
-		$("h3").text(here)
+		$("h3").text("")
 		$("h3").append("<img src=\"http://maps.googleapis.com/maps/api/staticmap?center=#{here}&zoom=16&size=400x400&sensor=true\" />")
-		nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude)
-		console.log(nearMe);
+		nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude,.5)
 		for place in nearMe
 			$b = $("<b>").text(place.name)
 			tmpl = "<li><a href='detail.html?id=#{place.name}'>#{place.name}</a></li>";
