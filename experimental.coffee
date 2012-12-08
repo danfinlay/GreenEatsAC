@@ -158,7 +158,7 @@ searchNearMe = (dataLocation, lat, lng, distance = .001 ) ->
 if navigator.geolocation
 	navigator.geolocation.getCurrentPosition (position) ->
 		here = "#{position.coords.latitude},#{position.coords.longitude}"
-		nearMe = searchNearMe("ls", position.coords.latitude, position.coords.longitude)
+		nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude)
 		for place in nearMe
 			console.log(place.name)
 	,(error) ->
