@@ -205,12 +205,15 @@ $ () ->
 		nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude,.5)
 		for place in nearMe
 			$b = $("<b>").text(place.name)
-			tmpl = "<li><a href='detail.html?id=#{place.name}'>#{place.name}</a></li>";
+			esc = escape(place.name)
+			violationsClass = if place.violations then "violations" else "smiles"
+			tmpl = "<li class=#{violationsClass}><a href='detail.html?id=#{esc}'>#{place.name}</a></li>";
 			$tmpl = $(tmpl)
 			if place.violations
 				console.log(place.name)
-				$tmpl.addClass("violations")
-			$("#names").append($(tmpl))
+				debugger
+				$tmpl = $tmpl.find("a").addClass("violations");
+			$("ul").append($(tmpl))
 		true
 
 	if navigator.geolocation
