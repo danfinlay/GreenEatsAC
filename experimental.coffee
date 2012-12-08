@@ -9,7 +9,7 @@
 # 		error: -> 
 # 			console.log(arguments)
 
-#imgs = document.images
+#imgs = document.images 
 #(break if img.attr(id)[/candi/]) for img in imgs
 # isOdd = (num) -> num%2 is 1
 # b = (x  === x for x in a)
@@ -140,35 +140,12 @@ Number::toRadians = () -> @*2*Math.PI/360
 # 	date = now.toDateString().split(" ")[1] + " " + now.getDate()
 # 	"#{date} #{h}:#{now.getMinutes()}  #{meridian}"
 
-# window.hash2 = new LocationHistory("test2", false, 
-# 	(raw, here) -> document.getElementsByTagName("ul")[0].innerHTML+= "<li><b>#{here}</b><em>#{prettyTime()}</em></li>")
-# _lat = 37.7665800003669;
-# _lng = -122.2447399995512;
-# _lmt = .0005;
-# res = [];
-# for (_i = 0, _len = ls.length; _i < _len; _i++) {
-# l = ls[_i];
-# lat = parseFloat(l.lat);
-# lng = parseFloat(l.lng);
-# if(lat < _lat + _lmt){
-#   if(lat > _lat - _lmt){
-#     console.log(l.name);
-#     console.log("\t0")
-#     if(lng > _lng + _lng){
-#       if(lng < _lng - _lmt){
-#         console.log("\t2");
-#         res.push(l);
-#       }
-#     }
-#   }
-# }
-# }	# if lat < _lat + _lmt and lat > _lat - _lmt and lng > _lng + _lng and lng < _lng - _lmt
 
 _lat = 37.78464995488294
 _lng = -122.29868805046627
 _lmt = .001
 
-nearMe = (dataLocation, lat, lng, distance = .001 ) ->
+searchNearMe = (dataLocation, lat, lng, distance = .001 ) ->
 	res = []
 	for l in window["dataLocation"]
 		lat = parseFloat(l.lat)
@@ -177,6 +154,24 @@ nearMe = (dataLocation, lat, lng, distance = .001 ) ->
 			if (_lng + distance) > lng <  ( _lng - distance)
 				res.push(l)
 	res
+
+if navigator.geolocation
+	navigator.geolocation.getCurrentPosition (position) ->
+		here = "#{position.coords.latitude},#{position.coords.longitude}"
+		nearMe = searchNearMe("ls", position.coords.latitude, position.coords.longitude)
+		for place in nearMe
+			console.log(place.name)
+	,(error) ->
+		console.log(error)
+		switch(error.code)
+			when 1 
+				console.log("declined")
+			when 3 
+				console.log("timeout")
+	,enableHighAccuracy: true
+
+
+
 
 # setInterval ->
 # 	if navigator.geolocation
