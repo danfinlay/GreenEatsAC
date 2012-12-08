@@ -147,7 +147,7 @@ _lmt = .001
 
 searchNearMe = (dataLocation, lat, lng, distance = .001 ) ->
 	res = []
-	for l in window["dataLocation"]
+	for l in window[dataLocation]
 		lat = parseFloat(l.lat)
 		lng = parseFloat(l.lng)
 		if (_lat + distance) > lat < (_lat - distance)
@@ -161,6 +161,7 @@ if navigator.geolocation
 		nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude)
 		for place in nearMe
 			console.log(place.name)
+		true
 	,(error) ->
 		console.log(error)
 		switch(error.code)
