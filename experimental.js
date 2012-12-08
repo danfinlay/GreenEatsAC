@@ -62,5 +62,16 @@
         enableHighAccuracy: true
       });
     }
+<<<<<<< HEAD
+    return true;
+  };
+  if (navigator.geolocation) {
+    return navigator.geolocation.getCurrentPosition(showPlacesNearMe, geoErrors, {
+      enableHighAccuracy: true
+    });
+  }
+});
+=======
   });
 }).call(this);
+>>>>>>> 47f90b9d62f76b254edc03029d37895b148714fb
