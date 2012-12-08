@@ -181,10 +181,12 @@ $ () ->
 		console.log(nearMe);
 		for place in nearMe
 			$b = $("<b>").text(place.name)
-			if place.violations
-				console.log(place.name)
-			$b.addClass("violations")
-			$("#names").append($b)
+			tmpl = "<li><a href='detail.html?id=#{place.name}'>#{place.name}</a></li>";
+
+			# if place.violations
+			# 	console.log(place.name)
+			# $b.addClass("violations")
+			$("#names").append($(tmpl))
 		true
 
 	if navigator.geolocation
