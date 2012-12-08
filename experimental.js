@@ -74,7 +74,7 @@
       var $b, $tmpl, esc, here, nearMe, place, tmpl, violationsClass, _i, _len;
       here = "" + position.coords.latitude + "," + position.coords.longitude;
       $("h3").text("");
-      $("h3").append("<img src=\"http://maps.googleapis.com/maps/api/staticmap?center=" + here + "&zoom=16&size=400x400&sensor=true\" />");
+      $("h3").append("<img id=\"whereAmiIMap\" src=\"http://maps.googleapis.com/maps/api/staticmap?center=" + here + "&zoom=16&size=400x400&sensor=true\" />");
       nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude, .5);
       for (_i = 0, _len = nearMe.length; _i < _len; _i++) {
         place = nearMe[_i];
