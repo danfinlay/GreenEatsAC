@@ -1,12 +1,39 @@
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+<html>
+	<head>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		<script src="violations.json"></script>
+		<script src="experimental.js"></script>
+		<style>
+			#names{
+				/*border:1px solid blue;*/
+			}
+			#names li{
+				display: block;
+				padding: 10px 10px 10px 10px;
+			}
+			li.smiles:before{
+				content: "  ";
+			}
+			li.violations{
+				color: #ccc;
+			}
+			li.violations:before{
+				content: ":(";
 
+			}
+		</style>
+	</head>
+	<center>
+	<body>
+		<h1>Places near you!</h1>
+		<h3 id="errors">loading</h3>
+		<div id="names"></div>
 
-
-<ul data-role="listview">
-	<li><a href="detail.html?id=top_thai">Top Thai</a></li>
-	<li><a href="detail.html?id=college_ave">College Avenue Burrito</a></li>
-	<li><a href="detail.html?id=kfc">KFC</a></li>
-</ul>
-
+		<ul data-role="listview" id="theList">
+		</ul>
+	</body>
+</center>
+</html>		
+		
