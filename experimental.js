@@ -77,7 +77,7 @@
     showPlacesNearMe = function(position) {
       var $b, $tmpl, here, nearMe, place, tmpl, _i, _len;
       here = "" + position.coords.latitude + "," + position.coords.longitude;
-      $("h3").text(here);
+      $("h3").html(here+"<br>");
       $("h3").append("<img src=\"http://maps.googleapis.com/maps/api/staticmap?center=" + here + "&zoom=16&size=400x400&sensor=true\" />");
       nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude);
       console.log(nearMe);
@@ -90,7 +90,7 @@
           console.log(place.name);
           $tmpl.addClass("violations");
         }
-        $("#names").append($(tmpl));
+        $("#theList").append($(tmpl));
       }
       return true;
     };

@@ -1,36 +1,20 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"</script>
+
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="violations.json"></script>
 		<script src="experimental.js"></script>
-		<style>
-			#names{
-				border:1px solid blue;
-			}
-			#names li{
-				display: block;
-<<<<<<< HEAD
-				border:1px solid red;
-=======
-				padding: 10px 10px 10px 10px;
-			}
-			#names li.violations{
-				color: #ccc;
-			}
-			#names li.violations::before{
-				content: ":(";
-
->>>>>>> d9001d0e9ceda8789c413a9a635eae7b506e9942
-			}
-		</style>
+		
 	</head>
 	<body>
 		<h1>Places near you!</h1>
 		<h3 id="errors">loading</h3>
 		<div id="names"></div>
-		<ul data-role="listview">
+
+		<ul data-role="listview" id="theList">
+		</ul>
 	</body>
 </html>
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
