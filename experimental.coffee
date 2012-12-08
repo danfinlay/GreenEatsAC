@@ -59,7 +59,7 @@ Number::toRadians = () -> @*2*Math.PI/360
 # 		@name = name
 # 		@times = []
 # 		@locations = []
-# 		@EARTH_RADIUS = { kilometers: 6378.135, miles: 3963.1676 }
+EARTH_RADIUS = { kilometers: 6378.135, miles: 3963.1676 }
 # 		if(load)
 # 			item = localStorage.getItem(@name)
 # 			item = JSON.parse(item)
@@ -82,31 +82,31 @@ Number::toRadians = () -> @*2*Math.PI/360
 # 			,enableHighAccuracy: true
 # 		,1000
 # 		null
-# 	haversine: (from, to, units = 'miles') ->
-# 		if(typeof from=="string" and typeof from=="string")
-# 			from_ = from.split /,\s*/
-# 			from_longitude = parseFloat(from_[0]).toRadians()
-# 			from_latitude = parseFloat(from_[1]).toRadians()
-# 			to_ = to.split /,\s*/
-# 			to_longitude = parseFloat(to_[0]).toRadians()
-# 			to_latitude = parseFloat(to_[1]).toRadians()
+	# haversine: (from, to, units = 'miles') ->
+	# 	if(typeof from=="string" and typeof from=="string")
+	# 		from_ = from.split /,\s*/
+	# 		from_longitude = parseFloat(from_[0]).toRadians()
+	# 		from_latitude = parseFloat(from_[1]).toRadians()
+	# 		to_ = to.split /,\s*/
+	# 		to_longitude = parseFloat(to_[0]).toRadians()
+	# 		to_latitude = parseFloat(to_[1]).toRadians()
 
-# 		else
-# 			from_longitude  = from.longitude.toRadians
-# 			from_latitude   = from.latitude.toRadians
-# 			to_longitude    = to.longitude.toRadians
-# 			to_latitude     = to.latitude.toRadians
+	# 	else
+	# 		from_longitude  = from.longitude.toRadians
+	# 		from_latitude   = from.latitude.toRadians
+	# 		to_longitude    = to.longitude.toRadians
+	# 		to_latitude     = to.latitude.toRadians
 
-# 		latitude_delta  = to_latitude - from_latitude
-# 		longitude_delta = to_longitude - from_longitude
+	# 	latitude_delta  = to_latitude - from_latitude
+	# 	longitude_delta = to_longitude - from_longitude
 
-# 		a = Math.pow(Math.sin(latitude_delta/2),2) +
-# 		Math.cos(from_latitude) *
-# 		Math.cos(to_latitude) *
-# 		Math.pow(Math.sin(longitude_delta/2),2)
+	# 	a = Math.pow(Math.sin(latitude_delta/2),2) +
+	# 	Math.cos(from_latitude) *
+	# 	Math.cos(to_latitude) *
+	# 	Math.pow(Math.sin(longitude_delta/2),2)
 
-# 		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-# 		d = @EARTH_RADIUS[units] * c
+	# 	c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+	# 	d = @EARTH_RADIUS[units] * c
 
 # 	add: (time,location) ->
 # 		@times.push(time)
@@ -152,15 +152,40 @@ $ () ->
 		# for point,index in points
 			# base += ""
 # markers=color:blue%7Clabel:S%7C11211%7C11206%7C11222&
-	searchNearMe = (dataLocation, lat, lng, distance = .001 ) ->
-		res = []
+	haversine = (from, to, units = 'miles') ->
+		if(typeof from=="string" and typeof from=="string")
+			from_ = from.split /,\s*/
+			from_longitude = parseFloat(from_[0]).toRadians()
+			from_latitude = parseFloat(from_[1]).toRadians()
+			to_ = to.split /,\s*/
+			to_longitude = parseFloat(to_[0]).toRadians()
+			to_latitude = parseFloat(to_[1]).toRadians()
 
+		else
+			from_longitude  = from.longitude.toRadians
+			from_latitude   = from.latitude.toRadians
+			to_longitude    = to.longitude.toRadians
+			to_latitude     = to.latitude.toRadians
+
+		latitude_delta  = to_latitude - from_latitude
+		longitude_delta = to_longitude - from_longitude
+
+		a = Math.pow(Math.sin(latitude_delta/2),2) +
+		Math.cos(from_latitude) *
+		Math.cos(to_latitude) *
+		Math.pow(Math.sin(longitude_delta/2),2)
+
+		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+		d = EARTH_RADIUS[units] * c
+
+	searchNearMe = (dataLocation, lat_, lng_, distance = .25 ) ->
+		res = []
 		for l in window[dataLocation]||window.violations
 			lat = parseFloat(l.lat)
 			lng = parseFloat(l.lng)
-			if (_lat + distance) > lat < (_lat - distance)
-				if (_lng + distance) > lng <  ( _lng - distance)
-					res.push(l)
+			h = haversine("#{lat},#{lng}","#{lat_},#{lng_}")
+			if(h<distance)
+				res.push(l)
 		res
 
 	geoErrors = (error) ->
@@ -182,10 +207,10 @@ $ () ->
 		for place in nearMe
 			$b = $("<b>").text(place.name)
 			tmpl = "<li><a href='detail.html?id=#{place.name}'>#{place.name}</a></li>";
-
-			# if place.violations
-			# 	console.log(place.name)
-			# $b.addClass("violations")
+			$tmpl = $(tmpl)
+			if place.violations
+				console.log(place.name)
+				$tmpl.addClass("violations")
 			$("#names").append($(tmpl))
 		true
 

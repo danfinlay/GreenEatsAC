@@ -8,12 +8,16 @@
 			#names{
 				/*border:1px solid blue;*/
 			}
-			#names b{
+			#names li{
 				display: block;
 				padding: 10px 10px 10px 10px;
 			}
-			#names b.violations{
-				color: red;
+			#names li.violations{
+				color: #ccc;
+			}
+			#names li.violations::before{
+				content: ":(";
+
 			}
 		</style>
 	</head>
