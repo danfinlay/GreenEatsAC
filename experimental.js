@@ -47,7 +47,7 @@
       }
     };
     showPlacesNearMe = function(position) {
-      var $b, here, nearMe, place, _i, _len;
+      var $b, here, nearMe, place, tmpl, _i, _len;
       here = "" + position.coords.latitude + "," + position.coords.longitude;
       $("h3").text(here);
       $("h3").append("<img src=\"http://maps.googleapis.com/maps/api/staticmap?center=" + here + "&zoom=16&size=400x400&sensor=true\" />");
@@ -56,11 +56,8 @@
       for (_i = 0, _len = nearMe.length; _i < _len; _i++) {
         place = nearMe[_i];
         $b = $("<b>").text(place.name);
-        if (place.violations) {
-          console.log(place.name);
-        }
-        $b.addClass("violations");
-        $("#names").append($b);
+        tmpl = "<li><a href='detail.html?id=" + place.name + "'>" + place.name + "</a></li>";
+        $("#names").append($(tmpl));
       }
       return true;
     };
