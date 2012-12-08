@@ -1,0 +1,42 @@
+Proposed Schema
+====
+
+Tables
+---
+establishments
+health_violations (descriptions of violation types)
+health_reports (whether establishments passed particular regulations (t/f values))
+green_violations
+green_reports
+
+Relations
+---
+reports tables ref establishments, violations
+
+
+Proposed Result Set Formats
+====
+
+[
+    {
+        id: 2,
+        name: "Napoleon Super Bakery",
+        health: {
+            contact_surfaces_clean: true,
+            hot_cold_water_available: true,
+            ...
+            latest_inspection: {
+                date: "2012-03-08",
+                violation_count: 0
+            }
+        },
+        green: {
+            avoids_styrofoam: true,
+            has_solar: true,
+            separated_waste: true,
+            vehicle_charging: false,
+            ...
+        }
+    },
+    ...
+]

@@ -1,18 +1,15 @@
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+<script src="experimental.js"></script>
 
 <title>Green Eats AC</title>
 <center>
 <h1>Green Eats AC</h1>
 <h2>Find Restaurant Health Inspections & Green 
 <textarea class =  "ui-input-text ui-body-c ui-corner-all ui-shadow-inset" id="searchField" placeholder="Restaurant name or address"></textarea>
-<button type = "submit" data-theme="a" class="ui-btn-hidden" aria-disabled="false">Search</button>
-<a href="index.html" data-role="button" style="height:100px; width:60%;font-size:300%" id="nearMe">Near Me</a>
+<button type = "submit" data-theme="b" class="ui-btn-hidden" aria-disabled="false">Search</button>
+<a href="example.html" data-role="button" style="height:100px;height:150px;font-size:300%" id="nearMe">
+	<img src="location-1.png" style="height:100%">
+</a>
 </center>
-<script>
-$( "#nearMe" ).on( "click", function(event, ui) {
-	event.preventDefault();
-	console.log("Near me clicked.");
-});
-</script>
