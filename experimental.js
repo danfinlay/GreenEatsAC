@@ -85,10 +85,10 @@
         $tmpl = $(tmpl);
         if (place.violations) {
           console.log(place.name);
-          debugger;
           $tmpl = $tmpl.find("a").addClass("violations");
         }
-        $("ul").append($(tmpl));
+        $("#theList").append($(tmpl));
+        $("#theList").listview('refresh');
       }
       return true;
     };

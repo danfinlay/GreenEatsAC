@@ -1,30 +1,26 @@
 
 
-<script>
-
 $.on("load", function(event, ui){
 	
-	function getIssuesForId(id){
-	$.getJSON("violations.js", {name: id}, function(json) {
-    	alert("JSON Data: " + json.violations);
+		var urlData = getUrlVars();
+		var locationId = unescape(urlData["id"]);
 		var items = [];
 		var ask = new String();
 		
 		if(violation.violations){
-					ask = "Ask about Violations";
+					ask = '<img src="skeptical.png">';
 					} else {
-					ask = "Clean Record";
+					ask = '<img src="good.png">';
 					};
     	//$.each(data, function(key, val) {
     	//items.push('<li id="' + key + '">' + val + '</li>');
 		$.each(json, function(){
 
 
-		var urlData = getUrlVars();
-		var locationId = unescape(urlData["id"]);
-		items.push('<li><h3>' + violation.name +'</h3><p>' + violation.adress + '</p><p>' + violation.city + '</p><p class="ui-li-aside"><strong>' + ask + '</strong>PM</p></a></li>');
-  	});
-  })
+		
+		items.push('<li><h3>' + violation.name +'</h3><p>' + violation.adress + '</p><p>' + violation.city + '</p><p class="ui-li-aside">' + ask + '</p></a></li>');
+	
+});
 
 
 function getUrlVars()
