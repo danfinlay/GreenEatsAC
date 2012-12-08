@@ -140,38 +140,43 @@ Number::toRadians = () -> @*2*Math.PI/360
 # 	date = now.toDateString().split(" ")[1] + " " + now.getDate()
 # 	"#{date} #{h}:#{now.getMinutes()}  #{meridian}"
 
-
-_lat = 37.78464995488294
-_lng = -122.29868805046627
-_lmt = .001
-
-searchNearMe = (dataLocation, lat, lng, distance = .001 ) ->
-	res = []
-	for l in window[dataLocation]
-		lat = parseFloat(l.lat)
-		lng = parseFloat(l.lng)
-		if (_lat + distance) > lat < (_lat - distance)
-			if (_lng + distance) > lng <  ( _lng - distance)
-				res.push(l)
-	res
-
-geoErrors = (error) ->
-	console.log(error)
-	switch(error.code)
-		when 1
-			console.log("declined")
-		when 3 
-			console.log("timeout")
-
 $ () ->
+
+	_lat = 37.78464995488294
+	_lng = -122.29868805046627
+	_lmt = .001
+
+	searchNearMe = (dataLocation, lat, lng, distance = .001 ) ->
+		res = []
+		for l in window[dataLocation]
+			lat = parseFloat(l.lat)
+			lng = parseFloat(l.lng)
+			if (_lat + distance) > lat < (_lat - distance)
+				if (_lng + distance) > lng <  ( _lng - distance)
+					res.push(l)
+		res
+
+	geoErrors = (error) ->
+		console.log(error)
+		$errorDiv = $("#errors")
+		switch(error.code)
+			when 1
+				$errorDiv.text("You declined to tell us your location :(")
+				console.log("declined")
+			when 3 
+				$errorDiv.text("Timeout :(")
+				console.log("timeout")
+	showPlacesNearMe = (position) ->
+		here = "#{position.coords.latitude},#{position.coords.longitude}"
+		$("h3").text(h3)
+		nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude)
+		console.log(nearMe);
+		for place in nearMe
+			$("#names").append($("<b>").text(place.name))
+		true
+
 	if navigator.geolocation
-		navigator.geolocation.getCurrentPosition (position) ->
-			here = "#{position.coords.latitude},#{position.coords.longitude}"
-			nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude)
-			for place in nearMe
-				$("#names").append($("<b>").text(place.name))
-			true
-		,geoErrors ,enableHighAccuracy: true
+		navigator.geolocation.getCurrentPosition(showPlacesNearMe,geoErrors, enableHighAccuracy: true)
 
 
 

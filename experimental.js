@@ -1,11 +1,11 @@
-(function() {
-  var geoErrors, searchNearMe, _lat, _lmt, _lng;
-  window.randomly = function() {
-    return Math.round(Math.random()) - 0.5;
-  };
-  Number.prototype.toRadians = function() {
-    return this * 2 * Math.PI / 360;
-  };
+window.randomly = function() {
+  return Math.round(Math.random()) - 0.5;
+};
+Number.prototype.toRadians = function() {
+  return this * 2 * Math.PI / 360;
+};
+$(function() {
+  var geoErrors, searchNearMe, showPlacesNearMe, _lat, _lmt, _lng;
   _lat = 37.78464995488294;
   _lng = -122.29868805046627;
   _lmt = .001;
@@ -29,28 +29,33 @@
     return res;
   };
   geoErrors = function(error) {
+    var $errorDiv;
     console.log(error);
+    $errorDiv = $("#errors");
     switch (error.code) {
       case 1:
+        $errorDiv.text("You declined to tell us your location :(");
         return console.log("declined");
       case 3:
+        $errorDiv.text("Timeout :(");
         return console.log("timeout");
     }
   };
-  $(function() {
-    if (navigator.geolocation) {
-      return navigator.geolocation.getCurrentPosition(function(position) {
-        var here, nearMe, place, _i, _len;
-        here = "" + position.coords.latitude + "," + position.coords.longitude;
-        nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude);
-        for (_i = 0, _len = nearMe.length; _i < _len; _i++) {
-          place = nearMe[_i];
-          $("#names").append($("<b>").text(place.name));
-        }
-        return true;
-      }, geoErrors, {
-        enableHighAccuracy: true
-      });
+  showPlacesNearMe = function(position) {
+    var here, nearMe, place, _i, _len;
+    here = "" + position.coords.latitude + "," + position.coords.longitude;
+    $("h3").text(h3);
+    nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude);
+    console.log(nearMe);
+    for (_i = 0, _len = nearMe.length; _i < _len; _i++) {
+      place = nearMe[_i];
+      $("#names").append($("<b>").text(place.name));
     }
-  });
-}).call(this);
+    return true;
+  };
+  if (navigator.geolocation) {
+    return navigator.geolocation.getCurrentPosition(showPlacesNearMe, geoErrors, {
+      enableHighAccuracy: true
+    });
+  }
+});
