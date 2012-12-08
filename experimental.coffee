@@ -155,21 +155,23 @@ searchNearMe = (dataLocation, lat, lng, distance = .001 ) ->
 				res.push(l)
 	res
 
-if navigator.geolocation
-	navigator.geolocation.getCurrentPosition (position) ->
-		here = "#{position.coords.latitude},#{position.coords.longitude}"
-		nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude)
-		for place in nearMe
-			console.log(place.name)
-		true
-	,(error) ->
-		console.log(error)
-		switch(error.code)
-			when 1 
-				console.log("declined")
-			when 3 
-				console.log("timeout")
-	,enableHighAccuracy: true
+geoErrors = (error) ->
+	console.log(error)
+	switch(error.code)
+		when 1
+			console.log("declined")
+		when 3 
+			console.log("timeout")
+
+$ () ->
+	if navigator.geolocation
+		navigator.geolocation.getCurrentPosition (position) ->
+			here = "#{position.coords.latitude},#{position.coords.longitude}"
+			nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude)
+			for place in nearMe
+				$("#names").append($("<b>").text(place.name))
+			true
+		,geoErrors ,enableHighAccuracy: true
 
 
 
