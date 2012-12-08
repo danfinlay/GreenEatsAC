@@ -51,7 +51,8 @@
 window.randomly = () -> (Math.round(Math.random())-0.5)
 Number::toRadians = () -> @*2*Math.PI/360
 
-# class LocationHistory
+# class LocationHistory 
+
 # 	constructor: (name = "Name", load  = false, onUpdate) ->
 # 		if not navigator.geolocation
 # 			return "not supported"
@@ -146,9 +147,15 @@ $ () ->
 	_lng = -122.29868805046627
 	_lmt = .001
 
+	# mapFromPoints = (points) ->
+		# base = "http://maps.googleapis.com/maps/api/staticmap?size=400x400&sensor=true&markers="
+		# for point,index in points
+			# base += ""
+# markers=color:blue%7Clabel:S%7C11211%7C11206%7C11222&
 	searchNearMe = (dataLocation, lat, lng, distance = .001 ) ->
 		res = []
-		for l in window[dataLocation]
+
+		for l in window[dataLocation]||window.violations
 			lat = parseFloat(l.lat)
 			lng = parseFloat(l.lng)
 			if (_lat + distance) > lat < (_lat - distance)
@@ -168,11 +175,16 @@ $ () ->
 				console.log("timeout")
 	showPlacesNearMe = (position) ->
 		here = "#{position.coords.latitude},#{position.coords.longitude}"
-		$("h3").text(h3)
+		$("h3").text(here)
+		$("h3").append("<img src=\"http://maps.googleapis.com/maps/api/staticmap?center=#{here}&zoom=16&size=400x400&sensor=true\" />")
 		nearMe = searchNearMe("violations", position.coords.latitude, position.coords.longitude)
 		console.log(nearMe);
 		for place in nearMe
-			$("#names").append($("<b>").text(place.name))
+			$b = $("<b>").text(place.name)
+			if place.violations
+				console.log(place.name)
+			$b.addClass("violations")
+			$("#names").append($b)
 		true
 
 	if navigator.geolocation
