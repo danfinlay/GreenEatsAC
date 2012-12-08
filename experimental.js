@@ -71,7 +71,7 @@
       }
     };
     showPlacesNearMe = function(position) {
-      var $b, $tmpl, here, nearMe, place, tmpl, _i, _len;
+      var $b, $tmpl, esc, here, nearMe, place, tmpl, violationsClass, _i, _len;
       here = "" + position.coords.latitude + "," + position.coords.longitude;
       $("h3").text("");
       $("h3").append("<img src=\"http://maps.googleapis.com/maps/api/staticmap?center=" + here + "&zoom=16&size=400x400&sensor=true\" />");
@@ -79,13 +79,16 @@
       for (_i = 0, _len = nearMe.length; _i < _len; _i++) {
         place = nearMe[_i];
         $b = $("<b>").text(place.name);
-        tmpl = "<li><a href='detail.html?id=" + place.name + "'>" + place.name + "</a></li>";
+        esc = escape(place.name);
+        violationsClass = place.violations ? "violations" : "smiles";
+        tmpl = "<li class=" + violationsClass + "><a href='detail.html?id=" + esc + "'>" + place.name + "</a></li>";
         $tmpl = $(tmpl);
         if (place.violations) {
           console.log(place.name);
-          $tmpl.addClass("violations");
+          debugger;
+          $tmpl = $tmpl.find("a").addClass("violations");
         }
-        $("#names").append($(tmpl));
+        $("ul").append($(tmpl));
       }
       return true;
     };
