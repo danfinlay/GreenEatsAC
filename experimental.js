@@ -81,7 +81,7 @@
         $b = $("<b>").text(place.name);
         esc = escape(place.name);
         violationsClass = place.violations ? "violations" : "smiles";
-        tmpl = "<li class=" + violationsClass + "><a href='detail.html?id=" + esc + "'>" + place.name + "</a></li>";
+        tmpl = "<li data-ajax='false' class=" + violationsClass + "><a data-ajax='false' href='detail.html?id=" + esc + "'>" + place.name + "</a></li>";
         $tmpl = $(tmpl);
         if (place.violations) {
           console.log(place.name);

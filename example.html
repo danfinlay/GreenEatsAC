@@ -26,6 +26,9 @@
 				content: ":(";
 
 			}
+			li{
+				height:20%;
+			}
 		</style>
 	</head>
 	<center>
@@ -34,9 +37,14 @@
 		<h3 id="errors">loading</h3>
 		<div id="names"></div>
 
-		<ul data-role="listview" id="theList">
+		<ul data-role="listview" id="theList" data-ajax="false">
 		</ul>
 	</body>
 </center>
-</html>		
+</html>	
+
+
+<script>
+$('ul').listview();
+</script>	
 		
