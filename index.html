@@ -5,9 +5,18 @@
 		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 		<script src="violations.json"></script>
 		<script src="experimental.js"></script>
+		<title>Keep Well - Places near you! </title>
+		<script>
+			$(function(){
+				window.scrollTo(0, 1);
+			})
+			</script>
 		<style>
 			#names{
 				/*border:1px solid blue;*/
+			}
+			#whereAmiIMap{
+				width: 80%;
 			}
 			#names li{
 				display: block;
@@ -21,7 +30,11 @@
 			}
 			li.violations:before{
 				content: ":(";
-
+				float: left;
+				padding-top: 10px;
+			}
+			li{
+				height:20%;
 			}
 		</style>
 	</head>
@@ -31,9 +44,14 @@
 		<h3 id="errors">loading</h3>
 		<div id="names"></div>
 
-		<ul data-role="listview" id="theList">
+		<ul data-role="listview" id="theList" data-ajax="false">
 		</ul>
 	</body>
 </center>
-</html>		
+</html>	
+
+
+<script>
+$('ul').listview();
+</script>	
 		
